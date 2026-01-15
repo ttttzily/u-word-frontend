@@ -76,7 +76,7 @@ const GitHubCalendar = ({
                 key={index}
                 className={`w-3 h-3 rounded-[4px]`}
                 style={{ backgroundColor: color }}
-                title={`${format(day, "PPP")}: ${contribution?.count || 0} contributions`}
+                title={`${format(day, "PPP")}, ${contribution?.count || 0} contributions`}
               />
             )
           })}

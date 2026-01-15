@@ -237,7 +237,7 @@ export default function WritingDashboard() {
                   variant="default"
                   size="sm"
                   disabled={isUploading}
-                  className="bg-gray-700 text-white hover:bg-accent text-xs !px-3"
+                  className="bg-neutral-700 text-white hover:bg-accent text-xs !px-3"
                 >
                   <Upload className="h-3 w-3 mr-1.5" />
                   {isUploading ? '上传中...' : '上传 CSV'}
@@ -404,7 +404,7 @@ export default function WritingDashboard() {
                     dataKey="dailyWords"
                     fill="#d1d5db"
                     name="每日新增"
-                    radius={[0, 0, 0, 0]} // 去掉圆角
+                    radius={[0, 0, 0, 0]}
                     barSize={8}
                   />
                   <Line
