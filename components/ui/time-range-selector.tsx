@@ -8,8 +8,8 @@ const timeRangeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-accent text-accent-foreground hover:bg-accent/90",
-        outline: "text-muted-foreground hover:bg-accent",
+        default: "bg-gray-200 dark:bg-gray-700 text-foreground hover:bg-gray-300 dark:hover:bg-gray-600",
+        outline: "text-muted-foreground hover:bg-gray-100 dark:hover:bg-gray-800",
       },
       size: {
         default: "px-3 py-1",

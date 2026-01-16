@@ -237,7 +237,7 @@ export default function WritingDashboard() {
                   variant="default"
                   size="sm"
                   disabled={isUploading}
-                  className="bg-gray-700 text-white hover:bg-accent text-xs !px-3"
+                  className="bg-neutral-700 text-white hover:bg-accent text-xs !px-3"
                 >
                   <Upload className="h-3 w-3 mr-1.5" />
                   {isUploading ? '上传中...' : '上传 CSV'}
@@ -257,7 +257,7 @@ export default function WritingDashboard() {
             </div>
             <div className="flex items-center gap-3">
               {uploadSuccess && (
-                <div className="text-sm text-green-500 dark:text-green-400">
+                <div className="text-sm text-accent dark:text-accent">
                   上传成功！
                 </div>
               )}
@@ -277,13 +277,13 @@ export default function WritingDashboard() {
                 </div>
                 <div className="text-center">
                   <div className="text-xs text-muted-foreground mb-1">最近新增</div>
-                  <div className={`font-bold text-lg ${latestNetChange >= 0 ? 'text-[#4ade80] dark:text-[#4ade80]' : 'text-red-400 dark:text-red-300'}`}>
+                  <div className="font-bold text-lg text-neutral-600 dark:text-white">
                     {latestNetChange >= 0 ? '+' : ''}{latestNetChange} 字
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="text-xs text-muted-foreground mb-1">总字数</div>
-                  <div className="text-xl font-semibold text-[#30a14e] dark:text-[#4ade80]">{latestTotal.toLocaleString()} 字</div>
+                  <div className="text-xl font-bold text-accent dark:text-[#60A5FA]">{latestTotal.toLocaleString()} 字</div>
                 </div>
               </div>
             </CardContent>
@@ -297,7 +297,7 @@ export default function WritingDashboard() {
               </CardHeader>
               <CardContent className="pb-0">
                 <div className="w-full">
-                    <GitHubCalendar data={heatmapData} colors={["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]} />
+                    <GitHubCalendar data={heatmapData} colors={["#ebedf0", "var(--accent)", "var(--accent)", "var(--accent)", "var(--accent)"]} />
                 </div>
               </CardContent>
             </Card>
@@ -311,21 +311,21 @@ export default function WritingDashboard() {
                 <div className="space-y-4">
                   {recentSaves.map((save, index) => (
                     <div
-                      key={index}
-                      className={`border-l-4 pl-3 py-1.5 flex items-center justify-between ${index === 0 ? "border-[#30a14e]" : "border-gray-300"}`}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm text-gray-900 dark:text-white truncate">{save.filename}</div>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-xs text-gray-500 whitespace-nowrap">
-                          {save.date} {save.time}
-                        </span>
-                        <span className={`font-semibold text-xs ${index === 0 ? "text-[#30a14e]" : "text-gray-500"} whitespace-nowrap`}>
-                          {save.wordCount.toLocaleString()}字
-                        </span>
-                      </div>
+                    key={index}
+                    className={`border-l-4 pl-3 py-1.5 flex items-center justify-between ${index === 0 ? "border-accent" : "border-gray-300"}`}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm text-gray-900 dark:text-white truncate">{save.filename}</div>
                     </div>
+                    <div className="flex items-center gap-4">
+                      <span className="text-xs text-gray-500 whitespace-nowrap">
+                        {save.date} {save.time}
+                      </span>
+                      <span className={`font-semibold text-xs ${index === 0 ? "text-accent" : "text-gray-500"} whitespace-nowrap`}>
+                        {save.wordCount.toLocaleString()}字
+                      </span>
+                    </div>
+                  </div>
                   ))}
                 </div>
               </CardContent>
@@ -348,6 +348,12 @@ export default function WritingDashboard() {
             <CardContent className="pb-4">
               <ResponsiveContainer width="100%" height={200}>
                 <ComposedChart data={monthlyData}>
+                  <defs>
+                    <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#d1d5db" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#d1d5db" stopOpacity={0.3} />
+                    </linearGradient>
+                  </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="transparent" />
                   <XAxis 
                     dataKey="date" 
@@ -402,16 +408,16 @@ export default function WritingDashboard() {
                   <Bar
                     yAxisId="left"
                     dataKey="dailyWords"
-                    fill="#d1d5db"
+                    fill="url(#barGradient)"
                     name="每日新增"
-                    radius={[0, 0, 0, 0]} // 去掉圆角
+                    radius={[0, 0, 0, 0]}
                     barSize={8}
                   />
                   <Line
                     yAxisId="right"
                     type="monotone"
                     dataKey="totalWords"
-                    stroke="#4ade80"
+                    stroke="var(--accent)"
                     strokeWidth={2} // 稍微加粗曲线
                     name="累计总字数"
                     dot={false}
