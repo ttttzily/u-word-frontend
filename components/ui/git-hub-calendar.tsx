@@ -28,24 +28,24 @@ const GitHubCalendar = ({
   }, [data])
 
   const getColor = (count: number) => {
-    // 使用基于主题的颜色
+    // 使用CSS变量获取主题颜色，确保与其他组件颜色一致
     const isDarkMode = theme === 'dark'
     
-    // 深色模式颜色（使用用户提供的RGB值转换的十六进制）
-    if (isDarkMode) {
-      if (count === 0) return '#242526' // 36, 37, 38
-      if (count < 100) return '#1a4a33' // 26, 74, 51
-      if (count < 500) return '#228150' // 34, 129, 80
-      if (count < 1000) return '#2bb96e' // 43, 185, 110
-      return '#32f08c' // 50, 240, 140
+    if (count === 0) {
+      return isDarkMode ? '#242526' : colors[0]
     }
     
-    // 浅色模式颜色
-    if (count === 0) return colors[0]
-    if (count < 100) return colors[1]
-    if (count < 500) return colors[2]
-    if (count < 1000) return colors[3]
-    return colors[4] || colors[colors.length - 1]
+    // 直接使用CSS变量，通过透明度实现渐变效果
+    if (count < 100) {
+      return 'rgba(var(--accent-rgb), 0.3)'
+    }
+    if (count < 500) {
+      return 'rgba(var(--accent-rgb), 0.5)'
+    }
+    if (count < 1000) {
+      return 'rgba(var(--accent-rgb), 0.7)'
+    }
+    return 'var(--accent)'
   }
 
   const renderWeeks = () => {
